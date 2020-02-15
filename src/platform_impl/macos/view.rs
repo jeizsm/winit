@@ -101,6 +101,12 @@ pub unsafe fn set_ime_position(ns_view: id, input_context: id, x: f64, y: f64) {
     let _: () = msg_send![input_context, invalidateCharacterCoordinates];
 }
 
+pub unsafe fn set_option_as_alt(ns_view: id, option_as_alt: bool) {
+    let state_ptr: *mut c_void = *(*ns_view).get_mut_ivar("winitState");
+    let state = &mut *(state_ptr as *mut ViewState);
+    state.ignore_alt_modifier = option_as_alt;
+}
+
 struct ViewClass(*const Class);
 unsafe impl Send for ViewClass {}
 unsafe impl Sync for ViewClass {}

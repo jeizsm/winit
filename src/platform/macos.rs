@@ -62,6 +62,13 @@ pub trait WindowExtMacOS {
 
     /// Sets whether or not the window has shadow.
     fn set_has_shadow(&self, has_shadow: bool);
+    /// Toggles the `Option` key being interpretted as an `Alt` modifier.
+    ///
+    /// This will ignore diacritical marks and accent characters from
+    /// being processed as received characters. Instead, the input
+    /// device's raw character will be placed in event queues with the
+    /// Alt modifier set.
+    fn set_option_as_alt(&self, option_as_alt: bool);
 }
 
 impl WindowExtMacOS for Window {
@@ -98,6 +105,10 @@ impl WindowExtMacOS for Window {
     #[inline]
     fn set_has_shadow(&self, has_shadow: bool) {
         self.window.set_has_shadow(has_shadow)
+    }
+
+    fn set_option_as_alt(&self, option_as_alt: bool) {
+        self.window.set_option_as_alt(option_as_alt)
     }
 }
 

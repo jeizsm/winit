@@ -24,7 +24,7 @@ use crate::{
         monitor::{self, MonitorHandle, VideoMode},
         util::{self, IdRef},
         view::CursorState,
-        view::{self, new_view},
+        view::{self, new_view, set_option_as_alt},
         window_delegate::new_delegate,
         OsError,
     },
@@ -1130,6 +1130,13 @@ impl WindowExtMacOS for UnownedWindow {
         unsafe {
             self.ns_window
                 .setHasShadow_(if has_shadow { YES } else { NO })
+        }
+    }
+
+    #[inline]
+    fn set_option_as_alt(&self, option_as_alt: bool) {
+        unsafe {
+            set_option_as_alt(*self.ns_view, option_as_alt);
         }
     }
 }
